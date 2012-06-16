@@ -1,6 +1,6 @@
 from pygame import init as pyinit, display, draw as pydraw, Color
 
-PPM = 40.0
+PPM = 10.0
 pyinit()
 
 def get_screen( width, height, caption = "boobs" ):

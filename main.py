@@ -10,9 +10,11 @@ SCREEN_HEIGHT = 600
 
 def main_loop():
 
-	screen = get_screen( SCREEN_WIDTH, SCREEN_HEIGHT )
+	class Context: pass
+	context = Context()
+	context.screen = get_screen( SCREEN_WIDTH, SCREEN_HEIGHT )
 
-	jucoid = Jucoid()
+	jucoid = Jucoid( context )
 
 	playing = True
 	currentTime = get_ticks()
@@ -26,7 +28,7 @@ def main_loop():
 			if event.type == QUIT:
 				playing = False
 
-		jucoid.draw( screen )
+		jucoid.draw()
 		finish_frame()
 
 		elapsedTime = get_ticks() - currentTime
