@@ -2,7 +2,7 @@ import math
 import random
 from pygame import Color
 from pygame import draw
-from draw import PPM
+import draw
 
 
 class Jucoid:
@@ -30,9 +30,4 @@ class Jucoid:
 
 	def draw(self, surface):
 
-		drawVertices = []
-		for vertex in self.vertices:
-			drawVertices.append( ( (5 + vertex[0]) * PPM,
-					(5 + vertex[1]) * PPM ) )
-		draw.polygon( surface, self.color, drawVertices, 0 )
-
+		draw.physPolygon( surface, (5,5), self.vertices, self.color )
