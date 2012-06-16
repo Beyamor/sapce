@@ -2,6 +2,9 @@ from pygame import event as events, QUIT
 from pygame.time import get_ticks, wait
 from draw import get_screen, finish_frame, start_frame
 from arena import Arena
+from ship.ship import Ship
+from ship.blueprint import Blueprint
+from ship.pilot import Pilot
 
 FPS = 30
 IDEAL_FRAME_TIME = 1000 / FPS
@@ -16,6 +19,8 @@ def main_loop():
 
 	arena = Arena()
 	context.world = arena.world
+
+	ship = Ship( Pilot(), Blueprint() )
 
 	playing = True
 	currentTime = get_ticks()
