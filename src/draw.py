@@ -28,7 +28,10 @@ def start_frame( screen ):
 def finish_frame( screen ):
 	pygame.display.flip()
 
-def image( screen, pos, image, color=None ):
+def image( screen, pos, image, angle=None ):
+
+	if angle != None:
+		image = pygame.transform.rotate( image, angle )
 
 	screen.blit( image, pos )
 

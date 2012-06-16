@@ -25,6 +25,7 @@ def main_loop():
 	ship = Ship( Pilot(), Blueprint() )
 
 	image = get_image( "co.png", color=draw.Color(0,255,0,255) )
+	rotation = 0
 
 	playing = True
 	currentTime = get_ticks()
@@ -46,7 +47,8 @@ def main_loop():
 		start_frame( context.screen )
 		for entity in arena.entities:
 			entity.draw()
-		draw.image( context.screen, (0,0), image )
+		draw.image( context.screen, (0,0), image, angle=rotation )
+		rotation += 10
 		finish_frame( context.screen )
 
 		elapsedTime = get_ticks() - currentTime
