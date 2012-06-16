@@ -3,15 +3,19 @@ import random
 from pygame import Color
 from pygame import draw
 import draw
+import physics
 
 class Jucoid:
 	screen = None
+	world = None
 	color = None
 	vertices = None
+	body = None
 
 	def __init__(self, context):
 
 		self.screen = context.screen
+		self.world = context.world
 
 		r = random.randint(0, 255)
 		g = random.randint(0, 255)
@@ -30,6 +34,12 @@ class Jucoid:
 					-math.sin( math.radians(angle) ) * length )
 			self.vertices.append( vertex )
 
+		self.body = physics.make_poly( self.world, (10,10), self.vertices )
+
+	def get_pos(self):
+
+		return self.body.worldCenter
+
 	def draw(self):
 
-		draw.phys_poly( self.screen, (5,5), self.vertices, self.color )
+		draw.phys_poly( self.screen, self.get_pos(), self.vertices, self.color )
