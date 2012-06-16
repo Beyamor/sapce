@@ -83,6 +83,17 @@ class Cockpit( Part ):
 		self.image = get_image( "cockpit.png", color )
 PART_TYPES["COCKPIT"] = Cockpit
 
+@thruster
+class Thruster( Part ):
+
+	def __init__( self, context, color ):
+		
+		Part.__init__( self, context )
+		self.hp = 1
+		self.total_hp = 1
+		self.image = get_image( "thruster.png", color )
+PART_TYPES["THRUSTER"] = Thruster
+
 def make_part( part_name, context, color ):
 
 	if part_name in PART_TYPES:
