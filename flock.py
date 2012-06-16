@@ -1,5 +1,7 @@
+import math
 import random
 from pygame import Color
+from pygame import draw
 
 
 class Jucoid:
@@ -22,7 +24,10 @@ class Jucoid:
 
 			angle = vertexIndex * degreeSplinter + random.uniform( -degreeSplinter/2, degreeSplinter/2 )
 			length = random.uniform( 0.5, 3 )
-			self.vertices.append( (angle,length) )
+			point = ( math.cos( math.radians(angle) ) * length,
+					-math.sin( math.radians(angle) ) * length )
 
-	def draw(self):
-		pass
+	def draw(self, surface):
+
+		draw.polygon( surface, self.color, self.vertices, 0 )
+
