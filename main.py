@@ -1,6 +1,6 @@
 from pygame import event as events, QUIT
 from pygame.time import get_ticks, wait
-from draw import get_screen, finish_frame
+from draw import get_screen, finish_frame, start_frame
 from phys import get_world
 from flock import Jucoid
 
@@ -30,10 +30,13 @@ def main_loop():
 			if event.type == QUIT:
 				playing = False
 
-		context.world.Step( deltaTime / 1000, 10, 10 )
+		context.world.Step( deltaTime * 0.001, 10, 10 )
 
+		jucoid.update( deltaTime )
+
+		start_frame( context.screen )
 		jucoid.draw()
-		finish_frame()
+		finish_frame( context.screen )
 
 		elapsedTime = get_ticks() - currentTime
 		if elapsedTime < IDEAL_FRAME_TIME:

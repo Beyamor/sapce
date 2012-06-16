@@ -10,7 +10,10 @@ def get_screen( width, height, caption = "boobs" ):
 
 	return screen
 
-def finish_frame():
+def start_frame( screen ):
+	screen.fill( (0,0,0,0) )
+
+def finish_frame( screen ):
 	display.flip()
 
 def phys_poly( surface, xy, vertices, color ):

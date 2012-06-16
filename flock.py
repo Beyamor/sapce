@@ -44,7 +44,11 @@ class Jucoid:
 		return self.body.worldCenter
 
 	def update(self,delta):
-		pass
+
+		MAGIC_FORCE = 1
+		impulse = ( math.cos( math.radians(self.direction) ) * MAGIC_FORCE,
+				math.sin( math.radians(self.direction) ) * MAGIC_FORCE )
+		phys.apply_impulse( self.body, impulse )
 
 	def draw(self):
 
