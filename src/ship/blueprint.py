@@ -1,4 +1,3 @@
-from parts import COCKPIT
 import draw
 
 V_PARTS = 7
@@ -17,4 +16,4 @@ class Blueprint:
 
 	def define( self ):
 
-		self.parts[H_CENTER][V_CENTER] = COCKPIT
+		self.parts[H_CENTER][V_CENTER] = "COCKPIT"

@@ -6,12 +6,17 @@ import draw
 WIDTH = 1
 HEIGHT = 1
 
+PART_TYPES = {}
+
 class Part:
 	hp = 0
 	total_hp = 0
 	image = None
 	context = None
 	body = None
+
+	canThrust = False
+	canShoot = False
 
 	def __init__( self, context ):
 		self.context = context
@@ -37,8 +42,23 @@ class Part:
 		if self.image:
 			draw.image( screen, self.get_pos(), self.image, angle=self.get_rotation() )
 
+def thruster( part ):
 
-COCKPIT = "cockpit"
+	orig_init = part.__init__
+
+	def __init__( self, *args, **kwargs ):
+		orig_init( self, *args, **kwargs )
+		self.canThrust = True
+
+	def apply_thrust( self ):
+		pass
+
+	part.__init__ = __init__
+	part.apply_thrust = apply_thrust
+
+	return part
+
+@thruster
 class Cockpit( Part ):
 
 	def __init__( self, context, color ):
@@ -48,9 +68,12 @@ class Cockpit( Part ):
 		self.total_hp = 1
 		self.image = get_image( "cockpit.png", color )
 
+		self.canThrust = True
+PART_TYPES["COCKPIT"] = Cockpit
+
 def make_part( part_name, context, color ):
 
-	if part_name == COCKPIT:
-		return Cockpit( context, color )
+	if part_name in PART_TYPES:
+		return PART_TYPES[part_name]( context, color )
 	else:
 		return None
