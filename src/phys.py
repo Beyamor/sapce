@@ -1,9 +1,14 @@
+import math
 from Box2D import b2World, b2BodyDef, b2Vec2
 
 def get_world():
 	
 	world = b2World( gravity=(0,0), doSleep=False )
 	return world
+
+def make_impulse( direction, magnitude ):
+	return ( math.cos( math.radians(direction) ) * magnitude,
+			-1 * math.sin( math.radians(direction) ) * magnitude )
 
 def make_box( world, position=(0,0), dim=(1,1), density=1, friction=0.1, restitution=0.1 ):
 
@@ -19,6 +24,9 @@ def make_poly( world, position=(0,0), vertices=[], density=1, friction=0.1, rest
 
 	return body
 
-def apply_impulse( body, impulse ):
+def apply_impulse( body, impulse, pos=None ):
 
-	body.ApplyLinearImpulse( impulse, body.worldCenter )
+	if pos is None:
+		pos = body.worldCenter
+
+	body.ApplyLinearImpulse( impulse, pos )

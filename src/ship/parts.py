@@ -15,7 +15,7 @@ class Part:
 	context = None
 	body = None
 
-	canThrust = False
+	can_thrust = False
 	canShoot = False
 
 	def __init__( self, context ):
@@ -48,10 +48,13 @@ def thruster( part ):
 
 	def __init__( self, *args, **kwargs ):
 		orig_init( self, *args, **kwargs )
-		self.canThrust = True
+		self.can_thrust = True
 
 	def apply_thrust( self ):
-		pass
+
+		MAGIC_IMPULSE_VALUE = 100.0
+		phys.apply_impulse( self.body,
+				phys.make_impulse( self.get_rotation(), MAGIC_IMPULSE_VALUE ) )
 
 	part.__init__ = __init__
 	part.apply_thrust = apply_thrust
@@ -68,7 +71,7 @@ class Cockpit( Part ):
 		self.total_hp = 1
 		self.image = get_image( "cockpit.png", color )
 
-		self.canThrust = True
+		self.can_thrust = True
 PART_TYPES["COCKPIT"] = Cockpit
 
 def make_part( part_name, context, color ):

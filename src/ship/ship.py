@@ -23,8 +23,17 @@ class Ship:
 				self.parts[i].append( parts.make_part( self.blueprint.parts[i][j], self.context, self.blueprint.color ) )
 
 	def update( self, dt ):
-		pass
+		for i in range( len(self.parts) ):
+			for j in range( len(self.parts[i]) ):
 
+				part = self.parts[i][j]
+
+				if part is None:
+					continue
+
+				if part.can_thrust:
+					part.apply_thrust()
+	
 	def draw( self ):
 
 		for i in range( len(self.parts) ):
@@ -32,5 +41,7 @@ class Ship:
 
 				part = self.parts[i][j]
 
-				if part is not None:
-					part.draw( self.context.screen )
+				if part is None:
+					continue
+
+				part.draw( self.context.screen )
