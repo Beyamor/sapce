@@ -1,7 +1,7 @@
 from pygame import event as events, QUIT
 from pygame.time import get_ticks, wait
 from draw import get_screen, finish_frame
-from physics import get_world
+from phys import get_world
 from flock import Jucoid
 
 FPS = 30
