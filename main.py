@@ -1,9 +1,12 @@
 from pygame.time import get_ticks, wait
+from flock import Jucoid
 
 FPS = 30
 IDEAL_FRAME_TIME = 1000 / FPS
 
 def mainLoop():
+
+	jucoid = Jucoid()
 
 	currentTime = get_ticks()
 
