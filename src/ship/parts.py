@@ -73,7 +73,6 @@ def thruster( part ):
 
 	return part
 
-@thruster
 class Cockpit( Part ):
 
 	def __init__( self, context, color ):
@@ -82,8 +81,6 @@ class Cockpit( Part ):
 		self.hp = 1
 		self.total_hp = 1
 		self.image = get_image( "cockpit.png", color )
-
-		self.can_thrust = True
 PART_TYPES["COCKPIT"] = Cockpit
 
 def make_part( part_name, context, color ):
