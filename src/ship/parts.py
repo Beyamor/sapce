@@ -1,6 +1,9 @@
+from draw import get_image
+
 class Part:
 	hp = 0
 	total_hp = 0
+	image = None
 
 
 	def take_hit( self, hit ):

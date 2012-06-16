@@ -5,6 +5,8 @@ from arena import Arena
 from ship.ship import Ship
 from ship.blueprint import Blueprint
 from ship.pilot import Pilot
+from draw import get_image, image
+import draw
 
 FPS = 30
 IDEAL_FRAME_TIME = 1000 / FPS
@@ -21,6 +23,8 @@ def main_loop():
 	context.world = arena.world
 
 	ship = Ship( Pilot(), Blueprint() )
+
+	image = get_image( "download.jpg" )
 
 	playing = True
 	currentTime = get_ticks()
@@ -42,6 +46,7 @@ def main_loop():
 		start_frame( context.screen )
 		for entity in arena.entities:
 			entity.draw()
+		draw.image( context.screen, (0,0), image )
 		finish_frame( context.screen )
 
 		elapsedTime = get_ticks() - currentTime
