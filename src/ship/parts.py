@@ -1,4 +1,5 @@
 import math
+import copy
 from draw import get_image
 import phys
 import draw
@@ -20,7 +21,7 @@ class Part:
 
 	def __init__( self, context ):
 		self.context = context
-		self.body = phys.make_box( self.context.world, dim=(WIDTH,HEIGHT) )
+		self.body = phys.make_box( self.context.world, dim=(WIDTH,HEIGHT), position=(5,5) )
 
 	def __del__( self ):
 		self.context.world.DestroyBody( self.body )
@@ -32,7 +33,7 @@ class Part:
 		return self.hp <= self.total_hp
 
 	def get_pos( self ):
-		return self.body.worldCenter
+		return copy.copy( self.body.worldCenter )
 
 	def get_rotation( self ):
 		return math.degrees( self.body.angle )
@@ -40,7 +41,7 @@ class Part:
 	def draw( self, screen ):
 
 		if self.image:
-			draw.image( screen, self.get_pos(), self.image, angle=self.get_rotation() )
+			draw.phys_image( screen, self.get_pos(), self.image, angle=self.get_rotation() )
 
 def thruster( part ):
 
@@ -52,9 +53,20 @@ def thruster( part ):
 
 	def apply_thrust( self ):
 
-		MAGIC_IMPULSE_VALUE = 100.0
+		MAGIC_IMPULSE_VALUE = 0.025
+
+		pos = self.get_pos()
+		ang = self.get_rotation()
+		wb2 = WIDTH*0.5
+		applyPoint = ( math.cos( math.radians(ang-180) ) * wb2,
+				math.sin( math.radians(ang-180) ) * wb2 )
+
+		pos[0] += applyPoint[0]
+		pos[1] += applyPoint[1]
+
 		phys.apply_impulse( self.body,
-				phys.make_impulse( self.get_rotation(), MAGIC_IMPULSE_VALUE ) )
+				phys.make_impulse( self.get_rotation(), MAGIC_IMPULSE_VALUE ),
+				pos=pos )
 
 	part.__init__ = __init__
 	part.apply_thrust = apply_thrust

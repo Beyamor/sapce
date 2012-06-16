@@ -37,6 +37,12 @@ def image( screen, pos, image, angle=None ):
 
 	screen.blit( image, pos )
 
+def phys_image( screen, xy, img, angle=None ):
+
+	xy[0] *= PPM
+	xy[1] *= PPM
+
+	image( screen, xy, img, angle=None )
 
 def phys_poly( screen, xy, vertices, color ):
 
@@ -47,3 +53,4 @@ def phys_poly( screen, xy, vertices, color ):
 
 	pygame.draw.polygon( screen, color, drawVertices, 0 )
 	pygame.draw.circle( screen, Color("#00FFFF"), (int(xy[0]*PPM),int(xy[1]*PPM)), 2 )
+
