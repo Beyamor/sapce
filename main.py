@@ -1,7 +1,7 @@
 from pygame import event as events, QUIT
 from pygame.time import get_ticks, wait
 from draw import get_screen, finish_frame, start_frame
-from phys import get_world
+from arena import Arena
 from flock import Jucoid
 
 FPS = 30
@@ -14,9 +14,12 @@ def main_loop():
 	class Context: pass
 	context = Context()
 	context.screen = get_screen( SCREEN_WIDTH, SCREEN_HEIGHT )
-	context.world = get_world()
+
+	arena = Arena()
+	context.world = arena.world
 
 	jucoid = Jucoid( context )
+	arena.add( jucoid )
 
 	playing = True
 	currentTime = get_ticks()
@@ -32,10 +35,12 @@ def main_loop():
 
 		context.world.Step( deltaTime * 0.001, 10, 10 )
 
-		jucoid.update( deltaTime )
+		for entity in arena.entities:
+			entity.update( deltaTime )
 
 		start_frame( context.screen )
-		jucoid.draw()
+		for entity in arena.entities:
+			entity.draw()
 		finish_frame( context.screen )
 
 		elapsedTime = get_ticks() - currentTime

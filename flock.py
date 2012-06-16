@@ -6,6 +6,7 @@ import draw
 import phys
 
 class Jucoid:
+
 	screen = None
 	world = None
 	color = None
@@ -38,6 +39,10 @@ class Jucoid:
 			self.vertices.append( vertex )
 
 		self.body = phys.make_poly( self.world, (10,10), self.vertices )
+
+	def __del__(self):
+
+		self.world.DestroyBody( self.body )
 
 	def get_pos(self):
 
