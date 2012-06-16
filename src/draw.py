@@ -3,6 +3,8 @@ import pygame
 PPM = 10.0
 pygame.init()
 
+Color = pygame.Color
+
 def get_screen( width, height, caption = "boobs" ):
 
 	screen = pygame.display.set_mode( (width,height), 0, 32 )
@@ -10,10 +12,15 @@ def get_screen( width, height, caption = "boobs" ):
 
 	return screen
 
-def get_image( image_name ):
+def get_image( image_name, color=None ):
 
 	root_dir = "resources/"
-	return pygame.image.load( root_dir + image_name )
+	image = pygame.image.load( root_dir + image_name )
+
+	if color:
+		image.fill( color, special_flags=pygame.BLEND_RGB_MULT )
+
+	return image
 
 def start_frame( screen ):
 	screen.fill( (0,0,0,0) )
@@ -21,7 +28,7 @@ def start_frame( screen ):
 def finish_frame( screen ):
 	pygame.display.flip()
 
-def image( screen, pos, image ):
+def image( screen, pos, image, color=None ):
 
 	screen.blit( image, pos )
 

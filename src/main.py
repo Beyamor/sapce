@@ -24,7 +24,7 @@ def main_loop():
 
 	ship = Ship( Pilot(), Blueprint() )
 
-	image = get_image( "download.jpg" )
+	image = get_image( "co.png", color=draw.Color(0,255,0,255) )
 
 	playing = True
 	currentTime = get_ticks()
