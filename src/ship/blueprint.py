@@ -1,5 +1,5 @@
 from parts import COCKPIT
-
+import draw
 
 V_PARTS = 7
 H_PARTS = V_PARTS
@@ -11,10 +11,10 @@ class Blueprint:
 
 	def __init__( self ):
 
-		self.parts = [[None for i in range(H_PARTS)] for j in range(V_PARTS)]
+		self.color = draw.PINK		
+		self.parts = [[None for j in range(V_PARTS)] for i in range(H_PARTS)]
 		self.define()
-
 
 	def define( self ):
 
-		self.parts[V_CENTER][H_CENTER] = COCKPIT
+		self.parts[H_CENTER][V_CENTER] = COCKPIT

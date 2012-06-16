@@ -4,6 +4,8 @@ PPM = 10.0
 pygame.init()
 
 Color = pygame.Color
+WHITE = Color(255,255,255,255)
+PINK = Color(250,175,190,255)
 
 def get_screen( width, height, caption = "boobs" ):
 
