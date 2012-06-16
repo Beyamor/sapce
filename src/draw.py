@@ -1,6 +1,6 @@
 import pygame
 
-PPM = 10.0
+PPM = 64.0
 pygame.init()
 
 Color = pygame.Color

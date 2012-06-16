@@ -1,15 +1,24 @@
+import math
 from draw import get_image
+import phys
 import draw
+
+WIDTH = 1
+HEIGHT = 1
 
 class Part:
 	hp = 0
 	total_hp = 0
 	image = None
 	context = None
+	body = None
 
 	def __init__( self, context ):
-
 		self.context = context
+		self.body = phys.make_box( self.context.world, dim=(WIDTH,HEIGHT) )
+
+	def __del__( self ):
+		self.context.world.DestroyBody( self.body )
 
 	def take_hit( self, hit ):
 		self.hp -= hit
@@ -18,10 +27,10 @@ class Part:
 		return self.hp <= self.total_hp
 
 	def get_pos( self ):
-		return (0,0)
+		return self.body.worldCenter
 
 	def get_rotation( self ):
-		return 0
+		return math.degrees( self.body.angle )
 
 	def draw( self, screen ):
 
@@ -34,7 +43,7 @@ class Cockpit( Part ):
 
 	def __init__( self, context, color ):
 
-		Part(self).__init__( context )
+		Part.__init__( self, context )
 		self.hp = 1
 		self.total_hp = 1
 		self.image = get_image( "cockpit.png", color )
