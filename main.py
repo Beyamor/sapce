@@ -1,6 +1,7 @@
 from pygame import event as events, QUIT
 from pygame.time import get_ticks, wait
 from draw import get_screen, finish_frame
+from physics import get_world
 from flock import Jucoid
 
 FPS = 30
@@ -13,6 +14,7 @@ def main_loop():
 	class Context: pass
 	context = Context()
 	context.screen = get_screen( SCREEN_WIDTH, SCREEN_HEIGHT )
+	context.world = get_world()
 
 	jucoid = Jucoid( context )
 
@@ -27,6 +29,8 @@ def main_loop():
 		for event in events.get():
 			if event.type == QUIT:
 				playing = False
+
+		context.world.Step( deltaTime / 1000, 10, 10 )
 
 		jucoid.draw()
 		finish_frame()
