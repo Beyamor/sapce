@@ -13,7 +13,7 @@ def get_screen( width, height, caption = "boobs" ):
 def finish_frame():
 	display.flip()
 
-def physPolygon( surface, xy, vertices, color ):
+def phys_poly( surface, xy, vertices, color ):
 
 	drawVertices = []
 	for vertex in vertices:

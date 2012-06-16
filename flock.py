@@ -30,4 +30,4 @@ class Jucoid:
 
 	def draw(self, surface):
 
-		draw.physPolygon( surface, (5,5), self.vertices, self.color )
+		draw.phys_poly( surface, (5,5), self.vertices, self.color )
