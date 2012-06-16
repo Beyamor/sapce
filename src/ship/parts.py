@@ -19,9 +19,9 @@ class Part:
 	can_thrust = False
 	canShoot = False
 
-	def __init__( self, context ):
+	def __init__( self, context, position ):
 		self.context = context
-		self.body = phys.make_box( self.context.world, dim=(WIDTH,HEIGHT), position=(5,5) )
+		self.body = phys.make_box( self.context.world, dim=(WIDTH,HEIGHT), position=position )
 
 	def __del__( self ):
 		self.context.world.DestroyBody( self.body )
@@ -75,9 +75,9 @@ def thruster( part ):
 
 class Cockpit( Part ):
 
-	def __init__( self, context, color ):
+	def __init__( self, context, color, position ):
 
-		Part.__init__( self, context )
+		Part.__init__( self, context, position )
 		self.hp = 1
 		self.total_hp = 1
 		self.image = get_image( "cockpit.png", color )
@@ -86,17 +86,17 @@ PART_TYPES["COCKPIT"] = Cockpit
 @thruster
 class Thruster( Part ):
 
-	def __init__( self, context, color ):
+	def __init__( self, context, color, position ):
 		
-		Part.__init__( self, context )
+		Part.__init__( self, context, position )
 		self.hp = 1
 		self.total_hp = 1
 		self.image = get_image( "thruster.png", color )
 PART_TYPES["THRUSTER"] = Thruster
 
-def make_part( part_name, context, color ):
+def make_part( part_data, context, color, position ):
 
-	if part_name in PART_TYPES:
-		return PART_TYPES[part_name]( context, color )
+	if part_data is not None and part_data.name in PART_TYPES:
+		return PART_TYPES[part_data.name]( context, color, position )
 	else:
 		return None
