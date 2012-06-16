@@ -2,7 +2,6 @@ from pygame import event as events, QUIT
 from pygame.time import get_ticks, wait
 from draw import get_screen, finish_frame, start_frame
 from arena import Arena
-from flock import Jucoid
 
 FPS = 30
 IDEAL_FRAME_TIME = 1000 / FPS
@@ -17,9 +16,6 @@ def main_loop():
 
 	arena = Arena()
 	context.world = arena.world
-
-	jucoid = Jucoid( context )
-	arena.add( jucoid )
 
 	playing = True
 	currentTime = get_ticks()
