@@ -1,6 +1,6 @@
 from pygame import event as events, QUIT
 from pygame.time import get_ticks, wait
-from draw import get_screen
+from draw import get_screen, finish_frame
 from flock import Jucoid
 
 FPS = 30
@@ -8,7 +8,7 @@ IDEAL_FRAME_TIME = 1000 / FPS
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-def mainLoop():
+def main_loop():
 
 	screen = get_screen( SCREEN_WIDTH, SCREEN_HEIGHT )
 
@@ -24,11 +24,14 @@ def mainLoop():
 
 		for event in events.get():
 			if event.type == QUIT:
-				playing = False		
+				playing = False
+
+		jucoid.draw( screen )
+		finish_frame()
 
 		elapsedTime = get_ticks() - currentTime
 		if elapsedTime < IDEAL_FRAME_TIME:
 			wait( IDEAL_FRAME_TIME - elapsedTime )	
 
 if __name__ == "__main__":
-	mainLoop()
+	main_loop()

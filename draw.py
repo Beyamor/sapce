@@ -9,3 +9,6 @@ def get_screen( width, height, caption = "boobs" ):
 	pygame.display.set_caption( caption )
 
 	return screen
+
+def finish_frame():
+	pygame.display.flip()
