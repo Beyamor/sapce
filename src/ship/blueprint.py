@@ -69,12 +69,16 @@ class BlueprintFactory:
 				if j < len(bp.parts[i])-1 and bp.parts[i][j+1] is None:
 					candidates.append(( (i,j), (i,j+1) ))
 
+		if len(candidates) is 0:
+			print "DEBUG: no candidate parents"
+			return
+
 		candidate = candidates[ random.randint(0,len(candidates)-1) ]
 		child = candidate[1]
 		parent = candidate[0]
 
 		if name is None:
-			if random.randint( 0, 1 ) is 0:
+			if random.randint( 0, 2 ) is 0:
 				name = "THRUSTER"
 			else:
 				name = "ARMOR"
