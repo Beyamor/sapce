@@ -14,6 +14,7 @@ def make_impulse( direction, magnitude ):
 
 def make_box( world, position=(0,0), dim=(1,1), density=1, friction=0.0, restitution=0.1 ):
 
+	dim = ( dim[0]*0.5, dim[1]*0.5 )
 	body = world.CreateDynamicBody( position=position )
 	shape = body.CreatePolygonFixture( box=dim, density=density, friction=friction, restitution=restitution )
 

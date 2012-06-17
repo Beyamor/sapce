@@ -1,9 +1,8 @@
 import draw
-
 V_PARTS = 7
 H_PARTS = V_PARTS
-V_CENTER = 4
-H_CENTER = 4
+V_CENTER = 3
+H_CENTER = 3
 
 class PartData:
 	name = None
@@ -37,6 +36,22 @@ class Blueprint:
 
 	def define( self ):
 
+		"""
 		self.set_part( (H_CENTER,V_CENTER), "COCKPIT" )
 		self.set_part( (H_CENTER-1,V_CENTER), "THRUSTER" )
 		self.attach_parts( (H_CENTER-1,V_CENTER), (H_CENTER,V_CENTER) )
+		"""
+		self.set_part( (3,3), "COCKPIT" )
+		self.set_part( (2,3), "COCKPIT" )
+		self.attach_parts( (2,3), (3,3) )
+		self.set_part( (2,2), "COCKPIT" )
+		self.attach_parts( (2,2), (2,3) )
+		self.set_part( (2,1), "THRUSTER" )
+		self.attach_parts( (2,1), (2,2) )
+		self.set_part( (4,3), "COCKPIT" )
+		self.attach_parts( (4,3), (3,3) )
+		self.set_part( (4,2), "COCKPIT" )
+		self.attach_parts( (4,2), (4,3) )
+		self.set_part( (5,3), "THRUSTER" )
+		self.attach_parts( (5,3), (4,3) )
+

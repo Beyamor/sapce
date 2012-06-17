@@ -41,7 +41,7 @@ class Part:
 	def draw( self, screen ):
 
 		if self.image:
-			draw.phys_image( screen, self.get_pos(), self.image, angle=self.get_rotation() )
+			draw.phys_image( screen, self.get_pos(), self.image, angle=-1*self.get_rotation() )
 
 def thruster( part ):
 

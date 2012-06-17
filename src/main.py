@@ -1,4 +1,5 @@
-from pygame import event as events, QUIT
+import pygame
+from pygame import event as events, QUIT, KEYDOWN
 from pygame.time import get_ticks, wait
 from draw import get_screen, finish_frame, start_frame
 from arena import Arena
@@ -6,6 +7,7 @@ from ship.ship import Ship
 from ship.blueprint import Blueprint
 from ship.pilot import Pilot
 from draw import get_image, image
+from phys_debug import PhysDebugRenderer
 import draw
 
 FPS = 30
@@ -22,10 +24,13 @@ def main_loop():
 	arena = Arena()
 	context.world = arena.world
 
+	pdr = PhysDebugRenderer( context.world )
+
 	ship = Ship( context, Pilot(), Blueprint() )
 	arena.add( ship )
 
 	playing = True
+	isPaused = True
 	currentTime = get_ticks()
 	while playing:
 
@@ -36,8 +41,12 @@ def main_loop():
 		for event in events.get():
 			if event.type == QUIT:
 				playing = False
+			if event.type is KEYDOWN and event.key is pygame.K_SPACE:
+				isPaused = not isPaused
 
-		context.world.Step( deltaTime * 0.001, 10, 10 )
+
+		if not isPaused:
+			context.world.Step( deltaTime * 0.001, 10, 10 )
 
 		for entity in arena.entities:
 			entity.update( deltaTime )
@@ -45,6 +54,7 @@ def main_loop():
 		start_frame( context.screen )
 		for entity in arena.entities:
 			entity.draw()
+		#pdr.draw( context.screen )
 		finish_frame( context.screen )
 
 		elapsedTime = get_ticks() - currentTime
