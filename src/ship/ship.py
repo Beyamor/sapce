@@ -45,7 +45,7 @@ class Ship:
 				child_body = self.parts[child_data.x][child_data.y].body
 				parent_body = self.parts[parent_data.x][parent_data.y].body
 
-				phys.join( self.context.world, child_body, parent_body )
+				phys.weld( self.context.world, child_body, parent_body )
 
 
 	def update( self, dt ):
