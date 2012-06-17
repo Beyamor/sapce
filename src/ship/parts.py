@@ -29,7 +29,7 @@ class Part:
 				rotation=self.initial_rotation() )
 
 	def initial_rotation( self ):
-		return 90
+		return 0
 
 	def __del__( self ):
 		self.context.world.DestroyBody( self.body )
@@ -91,6 +91,18 @@ class Cockpit( Part ):
 		self.image = get_image( "cockpit.png", plan.color )
 
 PART_TYPES["COCKPIT"] = Cockpit
+
+class Armor( Part ):
+
+	def __init__( self, context, plan, position ):
+
+		Part.__init__( self, context, plan, position )
+		self.hp = 1
+		self.total_hp = 1
+		self.image = get_image( "armor.png", plan.color )
+
+PART_TYPES["ARMOR"] = Armor
+
 
 @thruster
 class Thruster( Part ):
