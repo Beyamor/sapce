@@ -4,7 +4,7 @@ from pygame.time import get_ticks, wait
 from draw import get_screen, finish_frame, start_frame
 from arena import Arena
 from ship.ship import Ship
-from ship.blueprint import Blueprint
+from ship.blueprint import BlueprintFactory
 from ship.pilot import Pilot
 from draw import get_image, image
 from phys_debug import PhysDebugRenderer
@@ -26,7 +26,7 @@ def main_loop():
 
 	pdr = PhysDebugRenderer( context.world )
 
-	ship = Ship( context, Pilot(), Blueprint() )
+	ship = Ship( context, Pilot(), BlueprintFactory().make() )
 	arena.add( ship )
 
 	playing = True

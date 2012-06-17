@@ -25,10 +25,7 @@ class Blueprint:
 	parts = []
 
 	def __init__( self ):
-
-		self.color = draw.PINK		
 		self.parts = [[None for j in range(V_PARTS)] for i in range(H_PARTS)]
-		self.define()
 
 	def set_part( self, (x,y), name ):
 		self.parts[x][y] = PartData( x, y, name, self.color )
@@ -36,24 +33,29 @@ class Blueprint:
 	def attach_parts( self, (cx,cy), (px,py) ):
 		self.parts[cx][cy].set_parent( self.parts[px][py] )
 
-	def define( self ):
+class BlueprintFactory:
 
-		"""
-		self.set_part( (H_CENTER,V_CENTER), "COCKPIT" )
-		self.set_part( (H_CENTER-1,V_CENTER), "THRUSTER" )
-		self.attach_parts( (H_CENTER-1,V_CENTER), (H_CENTER,V_CENTER) )
-		"""
-		self.set_part( (3,3), "COCKPIT" )
-		self.set_part( (2,3), "ARMOR" )
-		self.attach_parts( (2,3), (3,3) )
-		self.set_part( (2,2), "ARMOR" )
-		self.attach_parts( (2,2), (2,3) )
-		self.set_part( (2,1), "THRUSTER" )
-		self.attach_parts( (2,1), (2,2) )
-		self.set_part( (4,3), "ARMOR" )
-		self.attach_parts( (4,3), (3,3) )
-		self.set_part( (4,2), "ARMOR" )
-		self.attach_parts( (4,2), (4,3) )
-		self.set_part( (5,3), "THRUSTER" )
-		self.attach_parts( (5,3), (4,3) )
+	def __init__( self ):
+		pass
+
+	def make( self ):
+		bp = Blueprint()
+		bp.color = draw.PINK
+
+		bp.set_part( (3,3), "COCKPIT" )
+		bp.set_part( (2,3), "ARMOR" )
+		bp.attach_parts( (2,3), (3,3) )
+		bp.set_part( (2,2), "ARMOR" )
+		bp.attach_parts( (2,2), (2,3) )
+		bp.set_part( (2,1), "THRUSTER" )
+		bp.attach_parts( (2,1), (2,2) )
+		bp.set_part( (4,3), "ARMOR" )
+		bp.attach_parts( (4,3), (3,3) )
+		bp.set_part( (4,2), "ARMOR" )
+		bp.attach_parts( (4,2), (4,3) )
+		bp.set_part( (5,3), "THRUSTER" )
+		bp.attach_parts( (5,3), (4,3) )
+
+		return bp
+
 
