@@ -12,10 +12,10 @@ def make_impulse( direction, magnitude ):
 	return ( math.cos( math.radians(direction) ) * magnitude,
 			-1 * math.sin( math.radians(direction) ) * magnitude )
 
-def make_box( world, position=(0,0), dim=(1,1), density=1, friction=0.0, restitution=0.1 ):
+def make_box( world, position=(0,0), dim=(1,1), density=1, friction=0.0, restitution=0.1, rotation=0 ):
 
 	dim = ( dim[0]*0.5, dim[1]*0.5 )
-	body = world.CreateDynamicBody( position=position )
+	body = world.CreateDynamicBody( position=position, angle=math.radians(rotation) )
 	shape = body.CreatePolygonFixture( box=dim, density=density, friction=friction, restitution=restitution )
 
 	return body

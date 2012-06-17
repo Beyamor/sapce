@@ -10,11 +10,13 @@ class PartData:
 	x = None
 	y = None
 	parent = None
+	color = None
 
-	def __init__( self, x, y, name ):
+	def __init__( self, x, y, name, color ):
 		self.x = x
 		self.y = y
 		self.name = name
+		self.color = color
 
 	def set_parent( self, parent ):
 		self.parent = parent
@@ -29,7 +31,7 @@ class Blueprint:
 		self.define()
 
 	def set_part( self, (x,y), name ):
-		self.parts[x][y] = PartData( x, y, name )
+		self.parts[x][y] = PartData( x, y, name, self.color )
 
 	def attach_parts( self, (cx,cy), (px,py) ):
 		self.parts[cx][cy].set_parent( self.parts[px][py] )

@@ -15,13 +15,21 @@ class Part:
 	image = None
 	context = None
 	body = None
+	plan = None
 
 	can_thrust = False
-	canShoot = False
 
-	def __init__( self, context, position ):
+	def __init__( self, context, plan, position ):
 		self.context = context
-		self.body = phys.make_box( self.context.world, dim=(WIDTH,HEIGHT), position=position )
+		self.plan = plan
+		self.body = phys.make_box(
+				self.context.world,
+				dim=(WIDTH,HEIGHT),
+				position=position,
+				rotation=self.initial_rotation() )
+
+	def initial_rotation( self ):
+		return 90
 
 	def __del__( self ):
 		self.context.world.DestroyBody( self.body )
@@ -75,28 +83,47 @@ def thruster( part ):
 
 class Cockpit( Part ):
 
-	def __init__( self, context, color, position ):
+	def __init__( self, context, plan, position ):
 
-		Part.__init__( self, context, position )
+		Part.__init__( self, context, plan, position )
 		self.hp = 1
 		self.total_hp = 1
-		self.image = get_image( "cockpit.png", color )
+		self.image = get_image( "cockpit.png", plan.color )
+
 PART_TYPES["COCKPIT"] = Cockpit
 
 @thruster
 class Thruster( Part ):
 
-	def __init__( self, context, color, position ):
+	def __init__( self, context, plan, position ):
 		
-		Part.__init__( self, context, position )
+		Part.__init__( self, context, plan, position )
 		self.hp = 1
 		self.total_hp = 1
-		self.image = get_image( "thruster.png", color )
+		self.image = get_image( "thruster.png", plan.color )
+
+	def initial_rotation( self ):
+
+		if self.plan is None or self.plan.parent is None:
+			return Part.initial_rotation( self )
+
+		dx = self.plan.parent.x - self.plan.x
+		dy = self.plan.parent.y - self.plan.y
+
+		if dx > 0:
+			return 0
+		if dx < 0:
+			return 180
+		if dy > 0:
+			return 90
+		if dy < 0:
+			return 270
+
 PART_TYPES["THRUSTER"] = Thruster
 
-def make_part( part_data, context, color, position ):
+def make_part( context, part_data, position ):
 
 	if part_data is not None and part_data.name in PART_TYPES:
-		return PART_TYPES[part_data.name]( context, color, position )
+		return PART_TYPES[part_data.name]( context, part_data, position )
 	else:
 		return None

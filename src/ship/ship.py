@@ -26,10 +26,11 @@ class Ship:
 
 				pos = ( position[0]+(i-V_CENTER)*parts.WIDTH,
 						position[1]+(j-H_CENTER)*parts.HEIGHT )
+
 				self.parts[i].append(
-						parts.make_part( self.blueprint.parts[i][j],
+						parts.make_part(
 							self.context,
-							self.blueprint.color, 
+							self.blueprint.parts[i][j],
 							pos ) )
 		# attach them
 		for i in range( len(self.parts) ):
