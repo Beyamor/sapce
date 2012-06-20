@@ -1,4 +1,4 @@
-import draw
+from gfx import draw
 import random
 
 V_PARTS = 7

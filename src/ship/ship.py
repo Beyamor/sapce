@@ -1,6 +1,6 @@
 import parts
 from blueprint import V_CENTER,H_CENTER
-import phys
+from phys import phys
 
 class Ship:
 	blueprint = None

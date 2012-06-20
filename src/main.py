@@ -1,14 +1,14 @@
 import pygame
 from pygame import event as events, QUIT, KEYDOWN
 from pygame.time import get_ticks, wait
-from draw import get_screen, finish_frame, start_frame
+from gfx.draw import get_screen, finish_frame, start_frame
 from arena import Arena
 from ship.ship import Ship
 from ship.blueprint import BlueprintFactory
 from ship.pilot import Pilot
-from draw import get_image, image
-from phys_debug import PhysDebugRenderer
-import draw
+from gfx.draw import get_image, image
+from debug.phys_debug import PhysDebugRenderer
+import gfx.draw
 
 FPS = 30
 IDEAL_FRAME_TIME = 1000 / FPS

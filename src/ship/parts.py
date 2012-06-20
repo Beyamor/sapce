@@ -1,8 +1,8 @@
 import math
 import copy
-from draw import get_image
-import phys
-import draw
+from gfx.draw import get_image
+from phys import phys
+from gfx import draw
 
 WIDTH = 1
 HEIGHT = 1

@@ -1,7 +1,7 @@
 from Box2D import b2_staticBody, b2_dynamicBody, b2_kinematicBody, b2Shape
 import pygame
-import draw
-from draw import phys_poly
+import gfx.draw
+from gfx.draw import phys_poly
 
 bodyColors = {
 	b2_staticBody	: (255,255,255,255),

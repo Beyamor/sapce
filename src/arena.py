@@ -1,4 +1,4 @@
-import phys
+from phys import phys
 
 class Arena:
 	entities = []
