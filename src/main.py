@@ -26,7 +26,7 @@ def main_loop():
 
 	parallax = Parallaxor(context.view)
 	parallax.push_background(get_image("stars1.png"))
-	parallax.push_background(get_image("stars1.png"))
+	parallax.push_background(get_image("stars2.png"))
 
 	arena = Arena()
 	context.world = arena.world

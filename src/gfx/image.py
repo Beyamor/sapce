@@ -51,6 +51,7 @@ class Image():
 				self._rotations = self._rotations[-_MAX_ROTATION_CACHE:]
 
 	def get_data( self, tint=None, rotation=0 ):
+		"""
 		self._cache_tint( tint )
 		self._cache_rotation( rotation )
 
@@ -63,6 +64,13 @@ class Image():
 
 		# uh oh?
 		return None
+		"""
+		image = self._raw.copy()
+		if tint is not None:
+			image.fill(tint, special_flags=pygame.BLEND_RGB_MULT)
+		if rotation != 0:
+			image = pygame.transform.rotate(image, rotation)
+		return image
 
 	def get_width(self):
 		return self._raw.get_width()
@@ -83,5 +91,5 @@ def get_image(image_name):
 	"""
 	root_dir = "resources/"
 	image = Image( pygame.image.load( root_dir + image_name ) )
-
+	image.name = image_name
 	return image
