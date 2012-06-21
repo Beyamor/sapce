@@ -60,7 +60,7 @@ def thruster( part ):
 
 	def apply_thrust( self ):
 
-		MAGIC_IMPULSE_VALUE = 0.025
+		MAGIC_IMPULSE_VALUE = 0.05
 
 		pos = self.get_pos()
 		ang = self.get_rotation()

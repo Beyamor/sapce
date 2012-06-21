@@ -3,11 +3,11 @@ import math
 class Parallaxor:
 
 	class Layer:
-		def __init__(self, image, view, shift_factor):
+		def __init__(self, image, view, scroll_rate):
 			self.image = image
 			self.step_x = view.from_pixels(image.get_width())
 			self.step_y = view.from_pixels(image.get_height())
-			self.shift_factor = shift_factor
+			self.scroll_rate = scroll_rate
 		
 	view = None
 	backgrounds = []
@@ -15,24 +15,24 @@ class Parallaxor:
 	def __init__(self, view):
 		self.view = view
 
-	def next_background_factor(self):
-		return 1 - 0.9 ** (len(self.backgrounds) + 1)
+	def next_background_scroll_rate(self):
+		return 1 - 0.3 ** (len(self.backgrounds) + 1)
 
 	def push_background(self, image):
 		self.backgrounds.append(
 				Parallaxor.Layer(
 					image,
 					self.view,
-					self.next_background_factor()))
+					self.next_background_scroll_rate()))
 
 	def draw(self):
 
 		for layer in self.backgrounds:
-			shift_factor = layer.shift_factor
+			scroll_rate = layer.scroll_rate
 			ox = self.view.origin[0]
 			oy = self.view.origin[1]
-			shifted_ox = ox * shift_factor
-			shifted_oy = oy * shift_factor
+			shifted_ox = ox * scroll_rate
+			shifted_oy = oy * scroll_rate
 
 			min_x = shifted_ox
 			while min_x > ox:
