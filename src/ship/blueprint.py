@@ -1,5 +1,6 @@
-from gfx import draw
 import random
+from gfx import draw
+from parts.types import *
 
 V_PARTS = 7
 H_PARTS = V_PARTS
@@ -50,10 +51,10 @@ class BlueprintFactory:
 
 	def is_candidate_parent( self, part ):
 		return part is not None and \
-			part.name is not "THRUSTER"
+			part.name is not THRUSTER
 
 	def add_cockpit( self, bp ):
-		bp.set_part( (H_CENTER, V_CENTER), "COCKPIT" )
+		bp.set_part( (H_CENTER, V_CENTER), COCKPIT )
 
 	def add_part( self, bp, name=None ):
 
@@ -86,11 +87,11 @@ class BlueprintFactory:
 
 		if name is None:
 			if random.randint( 0, 2 ) is 0:
-				name = "THRUSTER"
+				name = THRUSTER
 			else:
-				name = "ARMOR"
+				name = ARMOR
 
-		if name is "THRUSTER":
+		if name is THRUSTER:
 			self.added_a_thruster = True
 
 		bp.set_part( child, name )
@@ -111,7 +112,7 @@ class BlueprintFactory:
 			self.add_part( bp )
 
 		if not self.added_a_thruster:
-			self.add_part( bp, "THRUSTER" )
+			self.add_part( bp, THRUSTER )
 
 		return bp
 

@@ -1,4 +1,5 @@
 import parts
+from parts import part
 from blueprint import V_CENTER,H_CENTER
 from phys import phys
 
@@ -24,8 +25,8 @@ class Ship:
 			self.parts.append( [] )
 			for j in range( len(self.blueprint.parts[i]) ):
 
-				pos = ( position[0]+(i-V_CENTER)*parts.WIDTH,
-						position[1]+(j-H_CENTER)*parts.HEIGHT )
+				pos = ( position[0]+(i-V_CENTER)*part.WIDTH,
+						position[1]+(j-H_CENTER)*part.HEIGHT )
 
 				self.parts[i].append(
 						parts.make_part(
