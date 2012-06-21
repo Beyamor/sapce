@@ -35,6 +35,7 @@ def main_loop():
 
 	ship = Ship( context, Pilot(), BlueprintFactory().make() )
 	arena.add( ship )
+	arena.add(Ship(context, Pilot(), BlueprintFactory().make(), position=(10,10)))
 
 	playing = True
 	isPaused = True
