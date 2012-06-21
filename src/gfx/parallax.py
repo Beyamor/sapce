@@ -15,7 +15,7 @@ class Parallaxor:
 		for layer in range(len(self.backgrounds)):
 			image = self.backgrounds[layer]
 
-			shift_factor = 1 - 0.8 ** (layer+1)
+			shift_factor = 1 - 0.9 ** (layer+1)
 			ox = self.view.origin[0]
 			oy = self.view.origin[1]
 			shifted_ox = ox * shift_factor
