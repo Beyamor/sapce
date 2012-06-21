@@ -2,13 +2,12 @@ import pygame
 from pygame import event as events, QUIT, KEYDOWN
 from pygame.time import get_ticks, wait
 from gfx.draw import get_screen, finish_frame, start_frame
+from gfx.view import PhysView
 from arena import Arena
 from ship.ship import Ship
 from ship.blueprint import BlueprintFactory
 from ship.pilot import Pilot
-from gfx.draw import get_image, image
 from debug.phys_debug import PhysDebugRenderer
-import gfx.draw
 
 FPS = 30
 IDEAL_FRAME_TIME = 1000 / FPS
@@ -19,7 +18,9 @@ def main_loop():
 
 	class Context: pass
 	context = Context()
-	context.screen = get_screen( SCREEN_WIDTH, SCREEN_HEIGHT )
+
+	screen = get_screen( SCREEN_WIDTH, SCREEN_HEIGHT )
+	context.view = PhysView( screen )
 
 	arena = Arena()
 	context.world = arena.world
@@ -51,11 +52,11 @@ def main_loop():
 		for entity in arena.entities:
 			entity.update( deltaTime )
 
-		start_frame( context.screen )
+		start_frame( screen )
 		for entity in arena.entities:
 			entity.draw()
 		#pdr.draw( context.screen )
-		finish_frame( context.screen )
+		finish_frame( screen )
 
 		elapsedTime = get_ticks() - currentTime
 		if elapsedTime < IDEAL_FRAME_TIME:

@@ -70,4 +70,4 @@ class Ship:
 				if part is None:
 					continue
 
-				part.draw( self.context.screen )
+				part.draw( self.context.view )

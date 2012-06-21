@@ -1,8 +1,7 @@
 import math
 import copy
-from gfx.draw import get_image
+from gfx.image import get_image
 from phys import phys
-from gfx import draw
 
 WIDTH = 1
 HEIGHT = 1
@@ -46,10 +45,10 @@ class Part:
 	def get_rotation( self ):
 		return math.degrees( self.body.angle )
 
-	def draw( self, screen ):
+	def draw( self, view ):
 
 		if self.image:
-			draw.phys_image( screen, self.get_pos(), self.image, angle=-1*self.get_rotation() )
+			view.draw_image( self.image, self.get_pos(), angle=-1*self.get_rotation(), color=self.plan.color )
 
 def thruster( part ):
 
@@ -88,7 +87,7 @@ class Cockpit( Part ):
 		Part.__init__( self, context, plan, position )
 		self.hp = 1
 		self.total_hp = 1
-		self.image = get_image( "cockpit.png", plan.color )
+		self.image = get_image( "cockpit.png" )
 
 PART_TYPES["COCKPIT"] = Cockpit
 
@@ -99,7 +98,7 @@ class Armor( Part ):
 		Part.__init__( self, context, plan, position )
 		self.hp = 1
 		self.total_hp = 1
-		self.image = get_image( "armor.png", plan.color )
+		self.image = get_image( "armor.png" )
 
 PART_TYPES["ARMOR"] = Armor
 
@@ -112,7 +111,7 @@ class Thruster( Part ):
 		Part.__init__( self, context, plan, position )
 		self.hp = 1
 		self.total_hp = 1
-		self.image = get_image( "thruster.png", plan.color )
+		self.image = get_image( "thruster.png" )
 
 	def initial_rotation( self ):
 
