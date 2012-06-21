@@ -5,7 +5,11 @@ pygame.init()
 
 Color = pygame.Color
 WHITE = Color(255,255,255,255)
-PINK = Color(250,175,190,255)
+PINK = Color("#FAAFBE")
+GREEN = Color("#4CC417")
+BLUE = Color("#3090C7")
+RED = Color("#C11B17")
+YELLOW = Color("#FDD017")
 
 def get_screen(width, height, caption = "boobs"):
 	"""

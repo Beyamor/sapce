@@ -37,6 +37,13 @@ class Blueprint:
 
 class BlueprintFactory:
 	added_a_thruster = False
+	colors  = [
+			draw.PINK,
+			draw.BLUE,
+			draw.YELLOW,
+			draw.GREEN,
+			draw.RED]
+	color_index = 0
 
 	def __init__( self ):
 		pass
@@ -95,6 +102,8 @@ class BlueprintFactory:
 
 		bp = Blueprint()
 		bp.color = draw.PINK
+		bp.color = self.colors[self.color_index % len(self.colors)]
+		self.color_index += 1
 		self.add_cockpit( bp )
 
 		number_of_parts = random.randint( 4, 7 )

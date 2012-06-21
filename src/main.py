@@ -33,12 +33,13 @@ def main_loop():
 
 	pdr = PhysDebugRenderer( context.world )
 
-	ship = Ship( context, Pilot(), BlueprintFactory().make() )
+	factory = BlueprintFactory()
+	ship = Ship( context, Pilot(), factory.make() )
 	arena.add( ship )
-	arena.add(Ship(context, Pilot(), BlueprintFactory().make(), position=(2,2)))
-	arena.add(Ship(context, Pilot(), BlueprintFactory().make(), position=(2,8)))
-	arena.add(Ship(context, Pilot(), BlueprintFactory().make(), position=(8,2)))
-	arena.add(Ship(context, Pilot(), BlueprintFactory().make(), position=(8,8)))
+	arena.add(Ship(context, Pilot(), factory.make(), position=(2,2)))
+	arena.add(Ship(context, Pilot(), factory.make(), position=(2,8)))
+	arena.add(Ship(context, Pilot(), factory.make(), position=(8,2)))
+	arena.add(Ship(context, Pilot(), factory.make(), position=(8,8)))
 
 	playing = True
 	isPaused = True
