@@ -12,8 +12,8 @@ class Parallaxor:
 
 		for layer in range(len(self.backgrounds)):
 			image = self.backgrounds[layer]
-			origin_x = self.view.origin[0] * (0.75 ** (layer+1))
-			origin_y = self.view.origin[1] * (0.75 ** (layer+1))
+			origin_x = self.view.origin[0] * (1 - 0.8 ** (layer+1))
+			origin_y = self.view.origin[1] * (1 - 0.8 ** (layer+1))
 			step_h = self.view.from_pixels(image.get_width())
 			step_v = self.view.from_pixels(image.get_height())
 
