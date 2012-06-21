@@ -47,6 +47,8 @@ class Ship:
 
 				phys.weld( self.context.world, child_body, parent_body )
 
+	def get_position(self):
+		return self.parts[H_CENTER][V_CENTER].get_pos()
 
 	def update( self, dt ):
 		for i in range( len(self.parts) ):

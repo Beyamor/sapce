@@ -3,11 +3,13 @@ from pygame import event as events, QUIT, KEYDOWN
 from pygame.time import get_ticks, wait
 from gfx.draw import get_screen, finish_frame, start_frame
 from gfx.view import PhysView
+from gfx.image import get_image
 from arena import Arena
 from ship.ship import Ship
 from ship.blueprint import BlueprintFactory
 from ship.pilot import Pilot
 from debug.phys_debug import PhysDebugRenderer
+from gfx.parallax import Parallaxor
 
 FPS = 30
 IDEAL_FRAME_TIME = 1000 / FPS
@@ -21,6 +23,10 @@ def main_loop():
 
 	screen = get_screen( SCREEN_WIDTH, SCREEN_HEIGHT )
 	context.view = PhysView( screen )
+
+	parallax = Parallaxor(context.view)
+	parallax.push_background(get_image("stars1.png"))
+	parallax.push_background(get_image("stars1.png"))
 
 	arena = Arena()
 	context.world = arena.world
@@ -42,6 +48,7 @@ def main_loop():
 		for event in events.get():
 			if event.type == QUIT:
 				playing = False
+
 			if event.type is KEYDOWN and event.key is pygame.K_SPACE:
 				isPaused = not isPaused
 
@@ -51,11 +58,12 @@ def main_loop():
 
 		for entity in arena.entities:
 			entity.update( deltaTime )
+		context.view.center(ship.get_position())
 
 		start_frame( screen )
+		parallax.draw()
 		for entity in arena.entities:
 			entity.draw()
-		#pdr.draw( context.screen )
 		finish_frame( screen )
 
 		elapsedTime = get_ticks() - currentTime

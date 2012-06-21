@@ -64,6 +64,12 @@ class Image():
 		# uh oh?
 		return None
 
+	def get_width(self):
+		return self._raw.get_width()
+
+	def get_height(self):
+		return self._raw.get_height()
+
 def get_image(image_name):
 	"""
 	Loads an image from the resources directory.
