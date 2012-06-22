@@ -29,5 +29,19 @@ def is_thruster(part):
 
 	part.__init__ = __init__
 	part.apply_thrust = apply_thrust
+	return part
 
+def is_blaster(part):
+
+	orig_init = part.__init__
+
+	def __init__(self, *args, **kwargs):
+		orig_init(self, *args, **kwargs)
+		self.can_shoot = True
+
+	def shoot(self):
+		pass
+
+	part.__init__ = __init__
+	part.shoot = shoot
 	return part

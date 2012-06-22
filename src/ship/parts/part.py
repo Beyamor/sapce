@@ -12,8 +12,9 @@ class Part:
 	context = None
 	body = None
 	plan = None
-
+	can_be_parent = False
 	can_thrust = False
+	can_shoot = False
 
 	def __init__( self, context, plan, position ):
 		self.context = context
@@ -46,3 +47,26 @@ class Part:
 
 		if self.image:
 			view.draw_image( self.image, self.get_pos(), angle=-1*self.get_rotation(), color=self.plan.color )
+
+def is_possible_parent(part):
+	part.can_be_parent = True
+	return part
+
+def rotated_to_parent(part):
+	def initial_rotation(self):
+		if self.plan is None or self.plan.parent is None:
+			return Part.initial_rotation(self)
+
+		dx = self.plan.parent.x - self.plan.x
+		dy = self.plan.parent.y - self.plan.y
+
+		if dx > 0:
+			return 0
+		if dx < 0:
+			return 180
+		if dy > 0:
+			return 90
+		if dy < 0:
+			return 270
+	part.initial_rotation = initial_rotation
+	return part

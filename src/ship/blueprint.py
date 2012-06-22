@@ -51,7 +51,8 @@ class BlueprintFactory:
 
 	def is_candidate_parent( self, part ):
 		return part is not None and \
-			part.name is not THRUSTER
+			part.name is not THRUSTER and \
+			part.name is not BLASTER
 
 	def add_cockpit( self, bp ):
 		bp.set_part( (H_CENTER, V_CENTER), COCKPIT )
@@ -61,7 +62,6 @@ class BlueprintFactory:
 		candidates = []
 		for i in range( len(bp.parts) ):
 			for j in range( len(bp.parts[i]) ):
-
 				if not self.is_candidate_parent( bp.parts[i][j] ):
 					continue
 
@@ -86,11 +86,14 @@ class BlueprintFactory:
 		parent = candidate[0]
 
 		if name is None:
-			if random.randint( 0, 2 ) is 0:
+			derp = random.randint(0,3)
+			if derp == 0:
 				name = THRUSTER
+			elif derp == 1:
+				name = BLASTER
+				name = ARMOR
 			else:
 				name = ARMOR
-
 		if name is THRUSTER:
 			self.added_a_thruster = True
 
@@ -115,5 +118,3 @@ class BlueprintFactory:
 			self.add_part( bp, THRUSTER )
 
 		return bp
-
-

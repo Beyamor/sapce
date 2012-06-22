@@ -50,11 +50,30 @@ def weld(world, b1, b2):
 		b1: The first body.
 		b2: The second body.
 	"""
+	
+	p1 = b1.worldCenter
+	p2 = b1.worldCenter
+	center = (p1 + p2) / 2
+	ang = math.atan2( p2.y - p1.y, p2.x - p1.x )
+	normal1 = ang + math.pi / 2
+	normal2 = ang - math.pi / 2
+	distance = 0.5
+
+	weld1 = (
+			center.x + math.cos(normal1) * distance,
+			center.y - math.sin(normal1) * distance)
+	weld2 = (
+			center.x + math.cos(normal2) * distance,
+			center.y - math.sin(normal2) * distance)
+
 	world.CreateWeldJoint(
 			bodyA=b1,
 			bodyB=b2,
-			anchor= (b1.worldCenter + b2.worldCenter) / 2)
-
+			anchor=weld1)
+	world.CreateWeldJoint(
+			bodyA=b1,
+			bodyB=b2,
+			anchor=weld2)
 
 def apply_impulse(body, impulse, pos=None):
 	"""

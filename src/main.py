@@ -60,7 +60,7 @@ def main_loop():
 
 
 		if not isPaused:
-			context.world.Step( deltaTime * 0.001, 10, 10 )
+			context.world.Step(deltaTime * 0.001, 10, 10)
 
 		for entity in arena.entities:
 			entity.update( deltaTime )
