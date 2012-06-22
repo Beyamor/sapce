@@ -26,7 +26,6 @@ class Parallaxor:
 					self.next_background_scroll_rate()))
 
 	def draw(self):
-
 		for layer in self.backgrounds:
 			scroll_rate = layer.scroll_rate
 			ox = self.view.origin[0]
@@ -34,19 +33,22 @@ class Parallaxor:
 			shifted_ox = ox * scroll_rate
 			shifted_oy = oy * scroll_rate
 
+			wb2 = layer.step_x / 2.
+			hb2 = layer.step_x / 2.
+
 			min_x = shifted_ox
-			while min_x > ox:
+			while min_x > ox + wb2:
 				min_x -= layer.step_x
-			while min_x + layer.step_x < ox:
+			while min_x < ox - wb2:
 				min_x += layer.step_x
 			min_y = shifted_oy
-			while min_y > oy:
+			while min_y > oy + hb2:
 				min_y -= layer.step_y
-			while min_y + layer.step_y < oy:
+			while min_y < oy - hb2:
 				min_y += layer.step_y
 
-			max_x = min_x + self.view.width + layer.step_x * 2
-			max_y = min_y + self.view.height + layer.step_y * 2
+			max_x = ox + self.view.width + wb2
+			max_y = oy + self.view.height + hb2
 
 			x = min_x
 			while x <= max_x:
