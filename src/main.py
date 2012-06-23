@@ -45,6 +45,7 @@ def main_loop():
 	arena.add(Ship(context, Pilot(), factory.make(), position=(2,8)))
 	arena.add(Ship(context, Pilot(), factory.make(), position=(8,2)))
 	arena.add(Ship(context, Pilot(), factory.make(), position=(8,8)))
+	ship = arena.get_next_entity()
 
 	space = Spacilizer(context.view)
 
@@ -61,9 +62,11 @@ def main_loop():
 			if event.type == QUIT:
 				playing = False
 
-			if event.type is KEYDOWN and event.key is pygame.K_SPACE:
-				isPaused = not isPaused
-
+			elif event.type is KEYDOWN:
+				if event.key is pygame.K_SPACE:
+					isPaused = not isPaused
+				elif event.key is pygame.K_RETURN:
+					ship = arena.get_next_entity()
 
 		if not isPaused:
 			context.world.Step(deltaTime * 0.001, 10, 10)
