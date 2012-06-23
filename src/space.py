@@ -93,7 +93,7 @@ class Spacilizer:
 	def draw(self):
 
 		for layer in self.space.layers:
-			scroll_lag = 0.8 * 0.1 ** layer.depth
+			scroll_lag = 0.05 * 0.1 ** layer.depth
 			parallax_view = view.View(
 					self.view.screen,
 					self.view.scale,
