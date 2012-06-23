@@ -47,6 +47,19 @@ def finish_frame(screen):
 	"""
 	pygame.display.flip()
 
+def rect(screen, rect, color=WHITE, filled=True):
+	if filled is True:
+		width = 0
+	else:
+		width = 1
+
+	pygame.draw.rect(
+			screen,
+			color,
+			pygame.Rect(rect.x, rect.y, rect.width, rect.height),
+			width)
+
+
 def image(screen, image, pos, angle=0, color=None):
 	"""
 	Draws an image on a screen.

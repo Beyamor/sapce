@@ -1,9 +1,10 @@
 import draw
+from geometry import Vector, Rect
 
 class View:
 	screen = None
 	scale = 1
-	origin = (0,0)
+	origin = Vector(0,0)
 	width = 0
 	height = 0
 
@@ -21,8 +22,21 @@ class View:
 		return number*self.scale
 
 	def center(self, position):
-		self.origin = (position[0]-self.width/2.,
-				position[1]-self.height/2.)
+		self.origin = Vector(position.x - self.width/2.,
+				position.y - self.height/2.)
+
+	def draw_rect(self, rect, color=draw.WHITE, filled=True):
+		rect = Rect(
+				(rect.x - self.origin.x) * self.scale,
+				(rect.y - self.origin.y) * self.scale,
+				rect.width * self.scale,
+				rect.height * self.scale)
+		
+		draw.rect(
+				self.screen,
+				rect,
+				color=color,
+				filled=filled)
 
 	def draw_image(self, image, pos, angle=0, color=None):
 
