@@ -22,8 +22,8 @@ class Star:
 
 
 class Section:
-	width = 10
-	height = 10
+	width = 2
+	height = 2
 
 	def __init__(self, position, depth):
 		self.position = position
@@ -31,7 +31,7 @@ class Section:
 		self.make_stars(depth)
 
 	def make_stars(self, depth):
-		average_number = 15 + depth * 15
+		average_number = 1 + depth * 1
 		spread = 1
 		number_of_stars = int(round(max(random.gauss(average_number, spread), 0)))
 
