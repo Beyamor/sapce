@@ -31,7 +31,7 @@ class Section:
 		self.make_stars(depth)
 
 	def make_stars(self, depth):
-		average_number = 20
+		average_number = 15 + depth * 15
 		spread = 1
 		number_of_stars = int(round(max(random.gauss(average_number, spread), 0)))
 
@@ -83,7 +83,9 @@ class Layer:
 
 class Space:
 	def __init__(self):
-		self.layers = [Layer(0), Layer(1), Layer(2)]
+		self.layers = []
+		for depth in range(10):
+			self.layers.append(Layer(depth))
 	
 class Spacilizer:
 	def __init__(self, view):
@@ -93,7 +95,7 @@ class Spacilizer:
 	def draw(self):
 
 		for layer in self.space.layers:
-			scroll_lag = 0.05 * 0.1 ** layer.depth
+			scroll_lag = 0.05 * 0.5 ** layer.depth
 			parallax_view = view.View(
 					self.view.screen,
 					self.view.scale,
