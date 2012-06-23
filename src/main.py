@@ -4,12 +4,15 @@ from pygame.time import get_ticks, wait
 from gfx.draw import get_screen, finish_frame, start_frame
 from gfx.view import PhysView
 from gfx.image import get_image
+import gfx.draw
 from arena import Arena
 from ship.ship import Ship
 from ship.blueprint import BlueprintFactory
 from ship.pilot import Pilot
 from debug.phys_debug import PhysDebugRenderer
 from gfx.parallax import Parallaxor
+from geometry import Rect
+from space import Space, Section
 
 FPS = 30
 IDEAL_FRAME_TIME = 1000 / FPS
@@ -42,6 +45,8 @@ def main_loop():
 	arena.add(Ship(context, Pilot(), factory.make(), position=(8,2)))
 	arena.add(Ship(context, Pilot(), factory.make(), position=(8,8)))
 
+	space = Space()	
+
 	playing = True
 	isPaused = True
 	currentTime = get_ticks()
@@ -67,7 +72,15 @@ def main_loop():
 		context.view.center(ship.get_position())
 
 		start_frame( screen )
-		parallax.draw()
+		stars = space.get_stars(
+				Rect(
+					context.view.origin.x,
+					context.view.origin.y,
+					context.view.width,
+					context.view.height))
+		for star in stars:	
+			star.draw(context.view)
+
 		for entity in arena.entities:
 			entity.draw()
 		finish_frame( screen )
