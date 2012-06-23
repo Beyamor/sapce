@@ -51,8 +51,7 @@ class BlueprintFactory:
 
 	def is_candidate_parent( self, part ):
 		return part is not None and \
-			part.name is not THRUSTER and \
-			part.name is not BLASTER
+			PART_TYPES[part.name].can_be_parent
 
 	def add_cockpit( self, bp ):
 		bp.set_part( (H_CENTER, V_CENTER), COCKPIT )
@@ -91,7 +90,6 @@ class BlueprintFactory:
 				name = THRUSTER
 			elif derp == 1:
 				name = BLASTER
-				name = ARMOR
 			else:
 				name = ARMOR
 		if name is THRUSTER:
