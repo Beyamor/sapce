@@ -39,6 +39,7 @@ def main_loop():
 
 	factory = BlueprintFactory()
 	ship = Ship( context, Pilot(), factory.make() )
+	#ship = Ship(context, Pilot(), factory.make_thruster_ship())
 	arena.add( ship )
 	arena.add(Ship(context, Pilot(), factory.make(), position=(2,2)))
 	arena.add(Ship(context, Pilot(), factory.make(), position=(2,8)))

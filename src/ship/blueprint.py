@@ -103,7 +103,6 @@ class BlueprintFactory:
 		self.added_a_thruster = False
 
 		bp = Blueprint()
-		bp.color = draw.PINK
 		bp.color = self.colors[self.color_index % len(self.colors)]
 		self.color_index += 1
 		self.add_cockpit( bp )
@@ -115,4 +114,13 @@ class BlueprintFactory:
 		if not self.added_a_thruster:
 			self.add_part( bp, THRUSTER )
 
+		return bp
+
+	def make_thruster_ship(self):
+		bp = Blueprint()
+		bp.color = self.colors[self.color_index % len(self.colors)]
+		self.color_index += 1
+		self.add_cockpit(bp)
+		bp.set_part((H_CENTER - 1,V_CENTER), THRUSTER)
+		bp.attach_parts((H_CENTER - 1,V_CENTER), (H_CENTER, V_CENTER))
 		return bp
