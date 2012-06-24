@@ -7,12 +7,15 @@ from geometry import Rect, Vector
 class Star:
 	def __init__(self, position, depth):
 		self.position = position
+		"""
 		if depth == 0:
 			image_name = "star0.png"
 		elif depth == 1:
 			image_name = "star1.png"
 		else:
 			image_name = "star2.png"
+		"""
+		image_name = "star2.png"
 		self.image = image.get_image(image_name)
 
 	def draw(self, view):
@@ -86,7 +89,8 @@ class Space:
 		self.layers = []
 		for depth in range(10):
 			self.layers.append(Layer(depth))
-	
+
+
 class Spacilizer:
 	def __init__(self, view):
 		self.view = view

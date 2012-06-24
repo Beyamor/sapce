@@ -70,10 +70,9 @@ def image(screen, image, pos, angle=0, color=None):
 		image: The image which is drawn.
 		angle: The rotation of the image in degrees.
 	"""
-	image_data = image.get_data( rotation=angle, tint=color )
-	w = image_data.get_width()
-	h = image_data.get_height()
-
+	image_data = image.get_data(rotation=angle, tint=color)
+	w = image.width
+	h = image.height
 	pos = (pos[0]-w/2.0, pos[1]-h/2.0)
 
 	screen.blit(image_data, pos)

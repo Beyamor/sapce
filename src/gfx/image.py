@@ -4,73 +4,62 @@ _MAX_ROTATION_CACHE = 5
 
 class Image():
 
-	_raw = None
-	_tinted = None
-	_tint_color = None
-	_rotations = []
+	def __init__(self, img, print_cache_misses = False):
+		self._raw = img
+		self._cached_tint = None
+		self._tinted = None
+		self._cached_angle = 0
+		self._rotated = None
+		self._unrotated = self._raw
+		self._transformed = self._raw
+		self.width = self._transformed.get_width()
+		self.height = self._transformed.get_height()
+		self._data = self._transformed.convert_alpha()
+		self._cache(None, 0)
+		self._print_cache_misses = print_cache_misses
 
-	def __init__(self, data):
-		self._raw = data
+	def _cache(self, tint, rotation):
+		cache_miss = False
+		new_tint = False
+		
+		if self._cached_tint != tint:
+			cache_miss = True
+			new_tint = True
 
-	def _get_unrotated( self ):
-		if self._tinted is not None:
-			return self._tinted
-		else:
-			return self._raw
+			# throw away angle based on previous tint
+			self._cached_angle = 0
 
-	def _cache_tint( self, tint ):
-		# new tint - must be cached
-		if tint != self._tint_color:
-			self._tint_color = tint
-
-			# discard rotations based on previous tint
-			self._rotations = []
-
+			self._cached_tint = tint
 			if tint is not None:
 				self._tinted = self._raw.copy()
-				self._tinted.fill( tint, special_flags=pygame.BLEND_RGB_MULT )
+				self._tinted.fill(tint, special_flags=pygame.BLEND_RGB_MULT)
+				self._unrotated = self._tinted
+				self._transformed = self._tinted
 			else:
 				self._tinted = None
+				self._unrotated = self._raw
+				self._transformed = self._raw
 
-	def _cache_rotation( self, rotation ):
-		rotation_is_cached = False
+		# if new angle or need to redraw angle
+		angle_difference = rotation - self._cached_angle
+		min_difference = 1
+		if angle_difference > min_difference or angle_difference < -min_difference or new_tint:
+			cache_miss = True
 
-		# check whether the rotation is in the cache
-		for rot in range(len(self._rotations)):
-			if self._rotations[rot][0] == rotation:
-				rotation_is_cached = True
-				break
+			self._cached_angle = rotation
+			self._rotated = pygame.transform.rotate(self._unrotated, rotation)
+			self._transformed = self._rotated
 
-		# if it's not, add it to the cache
-		if not rotation_is_cached:
-			self._rotations.append((
-				rotation,
-				pygame.transform.rotate( self._get_unrotated(), rotation )))
-			
-			if len(self._rotations) >= _MAX_ROTATION_CACHE:
-				self._rotations = self._rotations[-_MAX_ROTATION_CACHE:]
-
-	def get_data( self, tint=None, rotation=0 ):
-		"""
-		self._cache_tint( tint )
-		self._cache_rotation( rotation )
-
-		# since we cached tint/rotation, image is in rotation cache
-		rotation_length = len(self._rotations)
-		for i in range(rotation_length):
-			index = rotation_length - i - 1
-			if self._rotations[index][0] == rotation:
-				return self._rotations[index][1]
-
-		# uh oh?
-		return None
-		"""
-		image = self._raw.copy()
-		if tint is not None:
-			image.fill(tint, special_flags=pygame.BLEND_RGB_MULT)
-		if rotation != 0:
-			image = pygame.transform.rotate(image, rotation)
-		return image
+		if cache_miss:
+			self.width = self._transformed.get_width()
+			self.height = self._transformed.get_height()
+			self._data = self._transformed.convert_alpha() 
+			if self._print_cache_misses:
+				print "IMAGE CACHE MISS"
+		
+	def get_data(self, tint=None, rotation=0):
+		self._cache(tint, rotation)
+		return self._data
 
 	def get_width(self):
 		return self._raw.get_width()
@@ -78,7 +67,7 @@ class Image():
 	def get_height(self):
 		return self._raw.get_height()
 
-def get_image(image_name):
+def get_image(image_name, print_cache_misses=False):
 	"""
 	Loads an image from the resources directory.
 
@@ -90,6 +79,6 @@ def get_image(image_name):
 		The new image.
 	"""
 	root_dir = "resources/"
-	image = Image( pygame.image.load( root_dir + image_name ) )
+	image = Image(pygame.image.load(root_dir + image_name), print_cache_misses)
 	image.name = image_name
 	return image
