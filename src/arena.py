@@ -56,3 +56,5 @@ class Arena:
 	def update(self, dt):
 		self.physics_space.Step(dt*0.001, 10, 10)
 		self.view.center(self.entities[self.entity_index].get_position())
+		for entity in self.entities:
+			entity.update(dt)
