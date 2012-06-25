@@ -16,5 +16,6 @@ log_prefixes = {
 log_level = LOG_DEBUG
 
 def logmsg(msg, level=LOG_DEBUG):
+	msg = str(msg)
 	if level <= log_level:
 		print log_prefixes[level] + ": " + msg
