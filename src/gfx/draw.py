@@ -12,6 +12,7 @@ BLUE = Color("#3090C7")
 RED = Color("#C11B17")
 YELLOW = Color("#FDD017")
 CYAN = Color("#00FFFF")
+MAGENTA = Color("#FF00FF")
 
 def get_screen(width, height, caption = "boobs"):
 	"""

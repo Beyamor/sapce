@@ -51,7 +51,7 @@ def main_loop():
 				if event.key is pygame.K_SPACE:
 					isPaused = not isPaused
 				elif event.key is pygame.K_RETURN:
-					arena.focus_on_next_entity()
+					arena.focus_on_next_ship()
 
 		arena.update(deltaTime)
 

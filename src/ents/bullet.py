@@ -38,7 +38,7 @@ class Bullet:
 				self.image,
 				self.get_position(),
 				angle=self.get_rotation(),
-				color=draw.CYAN)
+				color=draw.MAGENTA)
 
 class BulletFactory:
 	def __init__(self, arena):

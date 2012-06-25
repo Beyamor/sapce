@@ -7,7 +7,8 @@ from debug import log
 
 class Arena:
 	entities = []
-	entity_index = 0
+	ships = []
+	ship_index = 0
 
 	def __init__(self, screen):
 		"""
@@ -15,7 +16,7 @@ class Arena:
 		"""
 		self.physics_space = phys.make_world()
 		self.view = PhysView(screen)
-		self.entity_index = 0
+		self.ship_index = 0
 		self.factories = {
 				Ship: ShipFactory(self),
 				Bullet: BulletFactory(self)
@@ -26,6 +27,8 @@ class Arena:
 			factory = self.factories[cls]
 			entity = factory.make(**kwargs)
 			self.add(entity)
+			if cls is Ship:
+				self.ships.append(entity)
 			return entity
 		else:
 			log.logmsg("No factory for class " + str(cls), log.LOG_WARNING)	
@@ -48,13 +51,12 @@ class Arena:
 			entity: The entity to remove.
 		"""
 		self.entities.remove(entity)
-		self.entity_index = self.entity_index % len(self.entities)
 
-	def focus_on_next_entity(self):
-		self.entity_index = (self.entity_index + 1) % len(self.entities)
+	def focus_on_next_ship(self):
+		self.ship_index = (self.ship_index + 1) % len(self.ships)
 
 	def update(self, dt):
 		self.physics_space.Step(dt*0.001, 10, 10)
-		self.view.center(self.entities[self.entity_index].get_position())
+		self.view.center(self.ships[self.ship_index].get_position())
 		for entity in self.entities:
 			entity.update(dt)
