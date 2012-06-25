@@ -58,8 +58,12 @@ class Ship:
 				if part is None:
 					continue
 
+				part.update(dt)
+
 				if part.can_thrust:
 					part.apply_thrust()
+				if part.can_shoot:
+					part.shoot()
 	
 	def draw(self):
 

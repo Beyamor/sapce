@@ -39,8 +39,10 @@ class Part:
 	def is_destroyed(self):
 		return self.hp <= self.total_hp
 
-	def draw(self, view):
+	def update(self, dt):
+		pass
 
+	def draw(self, view):
 		if self.image:
 			view.draw_image(self.image, self.get_position(), angle=-1*self.get_rotation(), color=self.plan.color)
 
