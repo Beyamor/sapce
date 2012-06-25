@@ -20,34 +20,17 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 def main_loop():
+	screen = get_screen(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-	class Context: pass
-	context = Context()
+	arena = Arena(screen)
 
-	screen = get_screen( SCREEN_WIDTH, SCREEN_HEIGHT )
-	context.view = PhysView( screen )
+	arena.make(Ship, position=(5,5))
+	arena.make(Ship, position=(2,2))
+	arena.make(Ship, position=(2,8))
+	arena.make(Ship, position=(8,2))
+	arena.make(Ship, position=(8,8))
 
-	parallax = Parallaxor(context.view)
-	parallax.push_background(get_image("stars1.png"))
-	parallax.push_background(get_image("stars2.png"))
-	parallax.push_background(get_image("stars3.png"))
-
-	arena = Arena()
-	context.world = arena.world
-
-	pdr = PhysDebugRenderer( context.world )
-
-	factory = BlueprintFactory()
-	ship = Ship( context, Pilot(), factory.make() )
-	#ship = Ship(context, Pilot(), factory.make_thruster_ship())
-	arena.add( ship )
-	arena.add(Ship(context, Pilot(), factory.make(), position=(2,2)))
-	arena.add(Ship(context, Pilot(), factory.make(), position=(2,8)))
-	arena.add(Ship(context, Pilot(), factory.make(), position=(8,2)))
-	arena.add(Ship(context, Pilot(), factory.make(), position=(8,8)))
-	ship = arena.get_next_entity()
-
-	space = Spacilizer(context.view)
+	space = Spacilizer(arena.view)
 
 	playing = True
 	isPaused = True
@@ -66,24 +49,21 @@ def main_loop():
 				if event.key is pygame.K_SPACE:
 					isPaused = not isPaused
 				elif event.key is pygame.K_RETURN:
-					ship = arena.get_next_entity()
+					ship = arena.focus_on_next_entity()
 
-		if not isPaused:
-			context.world.Step(deltaTime * 0.001, 10, 10)
-
+		arena.update(deltaTime)
 		for entity in arena.entities:
-			entity.update( deltaTime )
-		context.view.center(ship.get_position())
+			entity.update(deltaTime)
 
-		start_frame( screen )
+		start_frame(screen)
 		space.draw()
 		for entity in arena.entities:
 			entity.draw()
-		finish_frame( screen )
+		finish_frame(screen)
 
 		elapsedTime = get_ticks() - currentTime
 		if elapsedTime < IDEAL_FRAME_TIME:
-			wait( IDEAL_FRAME_TIME - elapsedTime )	
+			wait(IDEAL_FRAME_TIME - elapsedTime)	
 
 if __name__ == "__main__":
 	main_loop()

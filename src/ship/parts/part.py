@@ -9,44 +9,44 @@ class Part:
 	hp = 0
 	total_hp = 0
 	image = None
-	context = None
+	physics_space = None
 	body = None
 	plan = None
 	can_be_parent = False
 	can_thrust = False
 	can_shoot = False
 
-	def __init__( self, context, plan, position ):
-		self.context = context
+	def __init__(self, physics_space, plan, position):
+		self.physics_space = physics_space
 		self.plan = plan
 		self.body = phys.make_box(
-				self.context.world,
+				physics_space,
 				dim=(WIDTH,HEIGHT),
 				position=position,
-				rotation=self.initial_rotation() )
+				rotation=self.initial_rotation())
 
-	def initial_rotation( self ):
+	def initial_rotation(self):
 		return 0
 
-	def __del__( self ):
-		self.context.world.DestroyBody( self.body )
+	def __del__(self):
+		self.physics_space.DestroyBody(self.body)
 
-	def take_hit( self, hit ):
+	def take_hit(self, hit):
 		self.hp -= hit
 
-	def is_destroyed( self ):
+	def is_destroyed(self):
 		return self.hp <= self.total_hp
 
-	def get_pos( self ):
-		return copy.copy( self.body.worldCenter )
+	def get_pos(self):
+		return copy.copy(self.body.worldCenter)
 
-	def get_rotation( self ):
-		return math.degrees( self.body.angle )
+	def get_rotation(self):
+		return math.degrees(self.body.angle)
 
-	def draw( self, view ):
+	def draw(self, view):
 
 		if self.image:
-			view.draw_image( self.image, self.get_pos(), angle=-1*self.get_rotation(), color=self.plan.color )
+			view.draw_image(self.image, self.get_pos(), angle=-1*self.get_rotation(), color=self.plan.color)
 
 def is_possible_parent(part):
 	part.can_be_parent = True

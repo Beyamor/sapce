@@ -1,36 +1,55 @@
 from phys import phys
+from gfx.view import PhysView
+from ship.ship import Ship
+from ship.shipfactory import ShipFactory
 
 class Arena:
 	entities = []
 	entity_index = 0
-	world = None
 
-	def __init__(self):
+	def __init__(self, screen):
 		"""
 		Constructs the arena's world.
 		"""
-		self.world = phys.make_world()
+		self.physics_space = phys.make_world()
+		self.view = PhysView(screen)
+		self.entity_index = 0
+		self.factories = {
+				Ship: ShipFactory(self)
+				}
 
-	def add( self, entity ):
+	def make(self, cls, **kwargs):
+		if cls in self.factories:
+			factory = self.factories[cls]
+			entity = factory.make(**kwargs)
+			self.add(entity)
+			return entity
+		else:
+			print "OH NO - CAN'T MAKE CLASS"
+			return None
+
+	def add(self, entity):
 		"""
 		Adds an entity to the arena.
 
 		Args:
 			entity: The entity to add.
 		"""
-		self.entities.append( entity )
+		self.entities.append(entity)
 
-	def remove( self, entity ):
+	def remove(self, entity):
 		"""
 		Removes an entity from the arena.
 
 		Args:
 			entity: The entity to remove.
 		"""
-		self.entities.remove( entity )
+		self.entities.remove(entity)
 		self.entity_index = self.entity_index % len(self.entities)
 
-	def get_next_entity(self):
-		entity = self.entities[self.entity_index]
+	def focus_on_next_entity(self):
 		self.entity_index = (self.entity_index + 1) % len(self.entities)
-		return entity
+
+	def update(self, dt):
+		self.physics_space.Step(dt*0.001, 10, 10)
+		self.view.center(self.entities[self.entity_index].get_position())
