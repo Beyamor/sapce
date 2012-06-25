@@ -8,13 +8,14 @@ class Ship:
 	pilot = None
 	parts = None
 
-	def __init__(self, physics_space=None, view=None, pilot=None, blueprint=None, position=(5,5)):
-		self.view = view
+	def __init__(self, arena=None, pilot=None, blueprint=None, position=(5,5)):
+		self.view = arena.view
 		self.pilot = pilot
 		self.blueprint = blueprint
-		self.__build__(position, physics_space)
+		self.__build__(position, arena)
 
-	def __build__(self, position, physics_space):
+	def __build__(self, position, arena):
+		physics_space = arena.physics_space
 
 		# make the parts
 		self.parts = []
@@ -28,7 +29,7 @@ class Ship:
 
 				self.parts[i].append(
 						parts.make_part(
-							physics_space,
+							arena,
 							self.blueprint.parts[i][j],
 							pos) )
 		# attach them

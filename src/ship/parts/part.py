@@ -18,11 +18,12 @@ class Part:
 	can_thrust = False
 	can_shoot = False
 
-	def __init__(self, physics_space, plan, position):
-		self.physics_space = physics_space
+	def __init__(self, arena, plan, position):
+		self.arena = arena
+		self.physics_space = arena.physics_space
 		self.plan = plan
 		self.body = phys.make_box(
-				physics_space,
+				arena.physics_space,
 				dim=(WIDTH,HEIGHT),
 				position=position,
 				rotation=self.initial_rotation())

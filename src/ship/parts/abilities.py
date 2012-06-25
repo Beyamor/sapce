@@ -1,7 +1,9 @@
 import math
-from phys import phys
-from part import WIDTH, HEIGHT
 from debug import log
+from phys import phys
+from geometry import Vector
+from part import WIDTH, HEIGHT
+from ents.bullet import Bullet, DIAMETER as BULLET_DIAMETER
 
 def is_thruster(part):
 
@@ -47,7 +49,15 @@ def is_blaster(part):
 		if self.can_shoot:
 			self.can_shoot = False
 			self.shot_timer = self.shot_cooldown
-			log.logmsg("shooting")
+			my_pos = self.get_position()
+			my_ang = self.get_rotation()
+			shot_pos = my_pos + Vector(
+					math.cos(math.radians(my_ang+180)) * (WIDTH + BULLET_DIAMETER + 0.05) / 2.,
+					math.sin(math.radians(my_ang+180)) * (WIDTH + BULLET_DIAMETER + 0.05) / 2.)
+			shot = self.arena.make(
+					Bullet,
+					position=shot_pos,
+					direction=my_ang+180)
 
 	def update(self, dt):
 		orig_update(self, dt)

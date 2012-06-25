@@ -2,12 +2,13 @@ import copy
 import math
 from gfx import image
 from gfx.draw import PPM
+from gfx import draw
 from phys import phys
 from ents.entity import uses_body_attributes
 
 RADIUS = 8 / PPM
 DIAMETER = 2 * RADIUS
-SPEED = 5
+SPEED = 0.5
 
 @uses_body_attributes
 class Bullet:
@@ -24,7 +25,7 @@ class Bullet:
 		
 		initial_impulse = phys.make_impulse(
 				direction,
-				SPEED) # TODO: make speed actually represent speed
+				speed) # TODO: make speed actually represent speed
 		phys.apply_impulse(
 				self.body,
 				initial_impulse)
@@ -36,7 +37,8 @@ class Bullet:
 		self.view.draw_image(
 				self.image,
 				self.get_position(),
-				angle=self.get_rotation())
+				angle=self.get_rotation(),
+				color=draw.CYAN)
 
 class BulletFactory:
 	def __init__(self, arena):

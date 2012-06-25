@@ -23,8 +23,9 @@ def make_impulse(direction, magnitude):
 	Returns:
 		The impulse tuple.
 	"""
-	return (math.cos(math.radians(direction)) * magnitude,
-			math.sin(math.radians(direction)) * magnitude)
+	radians = math.radians(direction)
+	return (math.cos(radians) * magnitude,
+			math.sin(radians) * magnitude)
 
 
 def make_box(world, position=(0,0), dim=(1,1), density=1, friction=0.0, restitution=0.1, rotation=0):
