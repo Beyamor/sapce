@@ -75,7 +75,10 @@ def image(screen, image, pos, angle=0, color=None):
 	h = image.height
 	pos = (pos[0]-w/2.0, pos[1]-h/2.0)
 
-	screen.blit(image_data, pos)
+	try:
+		screen.blit(image_data, pos)
+	except TypeError:
+		print "DERPED THE BLIT, POS IS " + str(pos)
 
 def phys_poly(screen, xy, vertices, color):
 
