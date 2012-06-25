@@ -1,10 +1,12 @@
 import math
 import copy
 from phys import phys
+from ents.entity import uses_body_attributes
 
 WIDTH = 1
 HEIGHT = 1
 
+@uses_body_attributes
 class Part:
 	hp = 0
 	total_hp = 0
@@ -37,16 +39,10 @@ class Part:
 	def is_destroyed(self):
 		return self.hp <= self.total_hp
 
-	def get_pos(self):
-		return copy.copy(self.body.worldCenter)
-
-	def get_rotation(self):
-		return math.degrees(self.body.angle)
-
 	def draw(self, view):
 
 		if self.image:
-			view.draw_image(self.image, self.get_pos(), angle=-1*self.get_rotation(), color=self.plan.color)
+			view.draw_image(self.image, self.get_position(), angle=-1*self.get_rotation(), color=self.plan.color)
 
 def is_possible_parent(part):
 	part.can_be_parent = True

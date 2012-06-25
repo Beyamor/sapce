@@ -10,9 +10,9 @@ class ShipFactory:
 	def make(self, position=(0,0)):
 		arena = self.arena
 		ship = Ship(
-				arena.physics_space,
-				arena.view,
-				Pilot(),
-				self.blueprinter.make(),
-				position)
+				physics_space=arena.physics_space,
+				view=arena.view,
+				pilot=Pilot(),
+				blueprint=self.blueprinter.make(),
+				position=position)
 		return ship

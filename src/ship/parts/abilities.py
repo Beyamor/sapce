@@ -14,7 +14,7 @@ def is_thruster(part):
 
 		MAGIC_IMPULSE_VALUE = 0.05
 
-		pos = self.get_pos()
+		pos = self.get_position()
 		ang = self.get_rotation()
 		wb2 = WIDTH*0.5
 		applyPoint = (math.cos(math.radians(ang-180)) * wb2,

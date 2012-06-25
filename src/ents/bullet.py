@@ -3,13 +3,15 @@ import math
 from gfx import image
 from gfx.draw import PPM
 from phys import phys
+from ents.entity import uses_body_attributes
 
 RADIUS = 8 / PPM
 DIAMETER = 2 * RADIUS
 SPEED = 5
 
+@uses_body_attributes
 class Bullet:
-	def __init__(self, physics_space, view, position=(0,0), speed=SPEED, direction=0):
+	def __init__(self, physics_space=None, view=None, position=(0,0), speed=SPEED, direction=0):
 		self.physics_space = physics_space
 		self.view = view
 		self.image = image.get_image("shot.png")
@@ -27,12 +29,6 @@ class Bullet:
 				self.body,
 				initial_impulse)
 
-	def get_position(self):
-		return copy.copy(self.body.worldCenter)
-
-	def get_rotation(self):
-		return math.degrees(self.body.angle)
-
 	def update(self, dt):
 		pass
 	
@@ -49,8 +45,8 @@ class BulletFactory:
 	def make(self, position=(0,0), speed=SPEED, direction=0):
 		arena = self.arena
 		bullet = Bullet(
-			arena.physics_space,
-			arena.view,
+			physics_space=arena.physics_space,
+			view=arena.view,
 			position=position,
 			speed=speed,
 			direction=direction)

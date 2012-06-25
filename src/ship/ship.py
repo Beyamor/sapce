@@ -8,7 +8,7 @@ class Ship:
 	pilot = None
 	parts = None
 
-	def __init__(self, physics_space, view, pilot, blueprint, position=(5,5)):
+	def __init__(self, physics_space=None, view=None, pilot=None, blueprint=None, position=(5,5)):
 		self.view = view
 		self.pilot = pilot
 		self.blueprint = blueprint
@@ -47,7 +47,7 @@ class Ship:
 				phys.weld(physics_space, child_body, parent_body)
 
 	def get_position(self):
-		return self.parts[H_CENTER][V_CENTER].get_pos()
+		return self.parts[H_CENTER][V_CENTER].get_position()
 
 	def update(self, dt):
 		for i in range(len(self.parts)):
