@@ -2,6 +2,7 @@ from phys import phys
 from gfx.view import PhysView
 from ship.ship import Ship
 from ship.shipfactory import ShipFactory
+from ents.bullet import Bullet, BulletFactory
 from debug import log
 
 class Arena:
@@ -16,7 +17,8 @@ class Arena:
 		self.view = PhysView(screen)
 		self.entity_index = 0
 		self.factories = {
-				Ship: ShipFactory(self)
+				Ship: ShipFactory(self),
+				Bullet: BulletFactory(self)
 				}
 
 	def make(self, cls, **kwargs):

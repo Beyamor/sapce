@@ -13,6 +13,7 @@ from debug.phys_debug import PhysDebugRenderer
 from gfx.parallax import Parallaxor
 from geometry import Rect
 from space import Spacilizer
+from ents.bullet import Bullet
 
 FPS = 30
 IDEAL_FRAME_TIME = 1000 / FPS
@@ -29,6 +30,7 @@ def main_loop():
 	arena.make(Ship, position=(2,8))
 	arena.make(Ship, position=(8,2))
 	arena.make(Ship, position=(8,8))
+	arena.make(Bullet)
 
 	space = Spacilizer(arena.view)
 
