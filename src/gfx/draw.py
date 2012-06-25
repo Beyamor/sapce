@@ -1,4 +1,5 @@
 import pygame
+from debug import log
 
 PPM = 64.0
 pygame.init()
@@ -78,7 +79,7 @@ def image(screen, image, pos, angle=0, color=None):
 	try:
 		screen.blit(image_data, pos)
 	except TypeError:
-		print "DERPED THE BLIT, POS IS " + str(pos)
+		log.logmsg("Blit failed (position "+str(pos)+")", log.LOG_ERROR)
 
 def phys_poly(screen, xy, vertices, color):
 

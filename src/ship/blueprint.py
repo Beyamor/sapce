@@ -1,6 +1,7 @@
 import random
 from gfx import draw
 from parts.types import *
+from debug import log
 
 V_PARTS = 7
 H_PARTS = V_PARTS
@@ -77,7 +78,7 @@ class BlueprintFactory:
 					candidates.append(( (i,j), (i,j+1) ))
 
 		if len(candidates) is 0:
-			print "DEBUG: no candidate parents"
+			log.logmsg("No candidate parents", log.LOG_INFO)
 			return
 
 		candidate = candidates[ random.randint(0,len(candidates)-1) ]

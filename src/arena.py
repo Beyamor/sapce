@@ -2,6 +2,7 @@ from phys import phys
 from gfx.view import PhysView
 from ship.ship import Ship
 from ship.shipfactory import ShipFactory
+from debug import log
 
 class Arena:
 	entities = []
@@ -25,7 +26,7 @@ class Arena:
 			self.add(entity)
 			return entity
 		else:
-			print "OH NO - CAN'T MAKE CLASS"
+			log.logmsg("No factory for class " + str(cls), log.LOG_WARNING)	
 			return None
 
 	def add(self, entity):

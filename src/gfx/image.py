@@ -1,4 +1,5 @@
 import pygame
+from debug import log
 
 _MAX_ROTATION_CACHE = 5
 
@@ -55,7 +56,7 @@ class Image():
 			self.height = self._transformed.get_height()
 			self._data = self._transformed.convert_alpha() 
 			if self._print_cache_misses:
-				print "IMAGE CACHE MISS"
+				log.logmsg("Cache miss", log.LOG_INFO)
 		
 	def get_data(self, tint=None, rotation=0):
 		self._cache(tint, rotation)
