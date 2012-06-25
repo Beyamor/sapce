@@ -4,8 +4,17 @@ LOG_WARNING = 3
 LOG_INFO = 4
 LOG_DEBUG = 5
 
+log_prefixes = {
+		LOG_CRITICAL: "CRITICAL",
+		LOG_ERROR: "ERROR",
+		LOG_WARNING: "WARNING",
+		LOG_INFO: "DEBUG INFO",
+		LOG_DEBUG: "DEBUG"
+		}
+
+
 log_level = LOG_DEBUG
 
 def logmsg(msg, level=LOG_DEBUG):
 	if level <= log_level:
-		print msg
+		print log_prefixes[level] + ": " + msg
