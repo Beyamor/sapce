@@ -63,8 +63,8 @@ class Ship:
 
 				if part.can_thrust:
 					part.apply_thrust()
-				if part.can_shoot:
-					part.shoot()
+				#if part.can_shoot:
+				#	part.shoot()
 	
 	def draw(self):
 
