@@ -100,10 +100,12 @@ class Spacilizer:
 
 		for layer in self.space.layers:
 			scroll_lag = 0.05 * 0.5 ** layer.depth
+
 			parallax_view = view.View(
 					self.view.screen,
 					self.view.scale,
 					self.view.origin * scroll_lag)
+
 			stars = layer.get_stars(
 					Rect(
 						parallax_view.origin.x,
