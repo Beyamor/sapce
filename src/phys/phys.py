@@ -89,4 +89,4 @@ def apply_impulse(body, impulse, pos=None):
 	if pos is None:
 		pos = body.worldCenter
 
-	body.ApplyLinearImpulse(impulse, pos)
+	body.ApplyLinearImpulse(impulse, pos, True)
